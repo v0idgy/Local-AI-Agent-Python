@@ -10,7 +10,7 @@ embeddings = OllamaEmbeddings(model="mxbai-embed-large")
 db_location = "./chrome_langchain_db"
 add_documents = not os.path.exists(db_location)
 
-if add_documents:
+if add_documents: ## Read CSV and create Document objects
     documents = []
     ids = []
     
@@ -33,5 +33,5 @@ if add_documents:
     vector_store.add_documents(documents=documents, ids=ids)
     
 retriever = vector_store.as_retriever(
-    search_kwargs={"k": 5}
+    search_kwargs={"k": 5} ## No. of relevant docs(reviews) to retrieve
 )
