@@ -23,14 +23,15 @@ if add_documents: ## Read CSV and create Document objects
         ids.append(str(i))
         documents.append(document)
         
-vector_store = Chroma(
-    collection_name="restaurant_reviews",
+vector_store = Chroma( ## `Chroma` vector store initialization  
+    collection_name="restaurant_reviews", 
     persist_directory=db_location,
     embedding_function=embeddings
 )
 
 if add_documents:
-    vector_store.add_documents(documents=documents, ids=ids)
+    vector_store.add_documents(documents=documents, ids=ids) ## Add documents to the vector store
+    vector_store.persist() ## Persist the database to disk
     
 retriever = vector_store.as_retriever(
     search_kwargs={"k": 5} ## No. of relevant docs(reviews) to retrieve
